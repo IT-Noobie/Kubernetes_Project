@@ -34,7 +34,7 @@ header {
     width: 100%;
     padding: 5px;
     justify-content: space-between;
-    box-shadow: rgba(0, 0, 0, 0.65) 0px 25px 20px -20px;
+    box-shadow: rgba(0, 0, 0, 0.55) 0px 25px 20px -20px;
 }
 
 
@@ -44,7 +44,7 @@ header a {
     padding: 10px;
 }
 header div a {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 
