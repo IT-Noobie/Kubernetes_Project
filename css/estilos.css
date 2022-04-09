@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -15,9 +16,10 @@ body {
     /* Chrome 10-25, Safari 5.1-6 
     background: linear-gradient(to bottom, #414345, #232526);*/
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: -webkit-linear-gradient(to top, #09203f 0%, #5CA1D5 100%);
-    background-image: linear-gradient(to top, #09203f 0%, #5CA1D5 100%);
-    background-blend-mode: multiply,multiply;
+    /*background: -webkit-linear-gradient(to top, #09203f 0%, #5CA1D5 100%);
+    background-image: linear-gradient(to top, #09203f 0%, #5CA1D5 100%);*/
+    background-color: #5CA1D5;
+    background-blend-mode: multiply, multiply;
     background-attachment: fixed;
     color: white;
 }
@@ -43,15 +45,16 @@ header a {
     text-decoration: none;
     padding: 10px;
 }
+
 header div a {
     font-size: 1.1em;
 }
 
 
 #layout {
-    font-family:  'Fredoka One', cursive;
+    font-family: 'Fredoka One', cursive;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto- fit, (minmax 200px, 1fr));
     justify-items: center;
     margin: 100px;
     gap: 20px;
@@ -65,9 +68,22 @@ header div a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid inherit;
+    /*border: 1px solid inherit;
     border-radius: 10px;
-    box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.01), 0px 0px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.01), 0px 0px 8px rgba(0, 0, 0, 0.2);*/
+    border-radius: 50px;
+    background: linear-gradient(145deg, #62ace4, #5391c0);
+    box-shadow: 20px 20px 60px #4e89b5,
+        -20px -20px 60px #6ab9f5;
+    transition: all 1s ease-in-out;
+}
+
+.image:hover {
+    border-radius: 50px;
+    background: linear-gradient(145deg, #5391c0, #62ace4);
+    box-shadow: 20px 20px 60px #4e89b5,
+        -20px -20px 60px #6ab9f5;
+    cursor: pointer;
 }
 
 .image img {
@@ -79,8 +95,15 @@ header div a {
     font-size: 1.3em;
     text-decoration: none;
 }
-@media only screen and (min-width: 1024px) {
+
+@media only screen and (min-width: 1200px) {
     #layout {
-      grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
-  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+    #layout {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
