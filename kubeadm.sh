@@ -17,13 +17,23 @@ net.ipv4.ip_forward = 1
 net.brige.bridge-nf-call-ip6tables = 1
 EOF
 sudo sysctl --system
-## install containerd.
+## install containerd and docker
 sudo apt-get update
-sudo apt-get install -y containerd
-## create a default config file for containerd (on a directory) and restart containerd.
-sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
-sudo systemctl restart containerd
+
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
 ## install k8s required packages (first disable swap usage! check also /etc/fstab for swap usage)
 sudo swapoff -a
 sudo apt-get update
