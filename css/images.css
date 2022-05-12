@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Secular+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
 
 * {
     margin: 0;
@@ -10,14 +11,6 @@
 }
 
 body {
-    /*background: #232526;
-    /* fallback for old browsers 
-    background: -webkit-linear-gradient(to bottom, #414345, #232526);
-    /* Chrome 10-25, Safari 5.1-6 
-    background: linear-gradient(to bottom, #414345, #232526);*/
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    /*background: -webkit-linear-gradient(to top, #09203f 0%, #5CA1D5 100%);
-    background-image: linear-gradient(to top, #09203f 0%, #5CA1D5 100%);*/
     background-color: #5CA1D5;
     background-blend-mode: multiply, multiply;
     background-attachment: fixed;
@@ -25,21 +18,26 @@ body {
 }
 
 header {
-    font-family: 'Secular One', sans-serif;
+    font-family: 'Fredoka One', sans-serif;
     background-color: #5CA1D5;
     opacity: 0.9;
     position: fixed;
     top: 0;
     left: 0;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     width: 100%;
     padding: 5px;
     justify-content: space-between;
     box-shadow: rgba(0, 0, 0, 0.55) 0px 25px 20px -20px;
 }
 
-
+header h1 {
+    font-family: 'Kalam', cursive;
+    letter-spacing: 5px;
+    font-size: 2.5em;
+    color: white;
+}
 header a {
     color: white;
     text-decoration: none;
@@ -49,7 +47,6 @@ header a {
 header div a {
     font-size: 1.1em;
 }
-
 
 #layout {
     font-family: 'Fredoka One', cursive;
@@ -72,7 +69,6 @@ header div a {
     border-radius: 10px;
     box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.01), 0px 0px 8px rgba(0, 0, 0, 0.2);*/
     border-radius: 50px;
-    background: linear-gradient(145deg, #62ace4, #5391c0);
     box-shadow: 20px 20px 60px #4e89b5,
         -20px -20px 60px #6ab9f5;
     transition: all 1s ease-in-out;
