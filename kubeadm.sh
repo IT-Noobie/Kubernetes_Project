@@ -66,3 +66,7 @@ kubectl get nodes
 kubeadm token create --print-join-command 
 ## after a few minutes nodes should show up as read:
 kubectl get nodes
+
+sudo apt install mariadb-server
+echo 'editar bind addres -> 0.0.0.0'
+sudo nano /etc/mysql/mariadb.conf.d/50-server.conf
