@@ -1,8 +1,7 @@
 <?php
-//variables conexión
-$databaseHost = '10.0.4.0';
-$databaseUsername = 'insert_role';
-$databasePassword = 'AdmiContra_1234';
+$databaseHost = '172.16.41.139';
+$databaseUsername = 'insertRole';
+$databasePassword = 'hra';
 $databaseName = 'crane';
 
 //Conexión mysql
@@ -12,5 +11,6 @@ if (!$conexion){
     echo 'Error en la conexión a la base de datos';
 }
 else{
-    //echo'Conectado a la base de datos';
+    echo 'Conectado a la base de datos';
 }
+?>

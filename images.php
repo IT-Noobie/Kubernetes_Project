@@ -1,3 +1,15 @@
+<?php
+	session_start();
+	$username = $_SESSION['username'];
+	echo $username;
+	if ($username == '') {
+		echo 'You are not allowed';
+		session_destroy();
+		header('Location: ../index.html');
+	} else {
+		echo 'welcome';
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,8 +25,8 @@
         <header>
                 <h1><a href="index.html">CRANE</a></h1>
                 <div>
-                        <a href="./conection.html">A Trabajar</a>
-                        <a href="./logout.html">Cerrar sesión</a>
+                        <a href="./connection.html">A Trabajar</a>
+                        <a href="php/logout.php">Cerrar sesión</a>
                 </div>
         </header>
         <section id="layout">
