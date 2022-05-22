@@ -32,7 +32,7 @@ echo \
 
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
-
+sudo apt install openssh-server
 ## install k8s required packages (first disable swap usage! check also /etc/fstab for swap usage)
 sudo swapoff -a
 sudo apt-get update
@@ -70,30 +70,23 @@ kubectl get nodes
 snap install helm --classic
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-kubectl create namespace prometheus
-helm install prometheus prometheus-community/kube-prometheus-stack --namespace=prometheus
+#kubectl create namespace prometheus
+#helm install prometheus prometheus-community/kube-prometheus-stack --namespace=prometheus
 
 #Install lens
 wget https://api.k8slens.dev/binaries/Lens-5.4.6-latest.20220428.1.amd64.deb
 sudo dpkg -i Lens-5.4.6-latest.20220428.1.amd64.deb
 
 # Creación grupo sin privilegios
-groupadd nopvr-users
-mkdir /home/nopvr
-
+sudo groupadd nopvr-users
+sudo mkdir /home/noprv
+sudo chown -R zeus:noprv-users
 
 # Zeus user creation
 mkdir /home/zeus
 mkdir /home/zeus/roles
 mkdir /home/zeus/templates
 mkdir /home/zeus/certs
-sudo useradd -d /home/zeus/ -s /bin/bash zeus
-sudo echo godOfOlimpus | passwd zeus --stdin
-sudo chage -M 7 zeus
-
-# change permissions to zeus user 
-sudo chmod 755 -R noprv/ zeus/
-sudo chown -R zeus:zeus zeus/
 
 # Rol creation
 cat <<EOF > /home/zeus/roles/noprv.yaml
@@ -122,7 +115,7 @@ rules:
   resources: ["pods"]
   verbs: ["get", "watch", "list"]
 - apiGroups: [""]
-  resources: ["pods/exec"]
+  resources: ["rolebindings"]
   verbs: ["create"]
 EOF
 
@@ -131,7 +124,7 @@ cat <<EOF > /home/noprv/$username/templates/nginx-deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: paco-deployment
+  name: user-deployment
   namespace: application
 spec:
   selector:
