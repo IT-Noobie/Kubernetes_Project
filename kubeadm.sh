@@ -10,7 +10,7 @@ mkdir /home/zeus/certs
 mkdir /home/zeus/noprv-users
 # Creación grupo sin privilegios
 sudo groupadd noprv-users
-chown -R zeus:noprv-users /home/zeus/noprv-users
+sudo chown -R zeus:noprv-users /home/zeus/noprv-users
 
 
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
