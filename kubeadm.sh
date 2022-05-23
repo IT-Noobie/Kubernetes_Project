@@ -8,6 +8,8 @@ mkdir /home/zeus/roles
 mkdir /home/zeus/templates
 mkdir /home/zeus/certs
 mkdir /home/zeus/noprv-users
+# Creación grupo sin privilegios
+sudo groupadd noprv-users
 chown -R zeus:noprv-users /home/zeus/noprv-users
 
 
@@ -89,9 +91,6 @@ sudo dpkg -i Lens-5.4.6-latest.20220428.1.amd64.deb
 wget https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz
 tar -xvf k9s_Linux_x86_64.tar.gz
 sudo mv k9s /usr/bin
-
-# Creación grupo sin privilegios
-sudo groupadd noprv-users
 
 sudo cp /etc/kubernetes/pki/ca* /home/zeus/certs
 sudo chown zeus:zeus /home/zeus/certs/* 
