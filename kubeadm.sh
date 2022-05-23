@@ -3,17 +3,17 @@
 # cri: Docker
 # install required dependencies for earch k8s server/node.
 ## enable some kernel modules and make them available now.
+sudo apt update && sudo apt upgrade && sudo apt autoremove
+
 # Create needed folders
 mkdir /home/zeus/roles
 mkdir /home/zeus/templates
 mkdir /home/zeus/certs
-mkdir /home/zeus/noprv-users
-mkdir /home/zeus/scripts
-cp /home/zeus/Kubernetes_Project/userDeploy.sh /home/zeus/Kubernetes_Project/sshScript.sh /home/zeus/scripts
-
-# Creación grupo sin privilegios
-sudo groupadd noprv-users
-sudo chown -R zeus:noprv-users /home/zeus/noprv-users
+mkdir /home/zeus/bin
+sudo ln -s /bin/sed /home/zeus/bin/
+sudo ln -s /bin/rm /home/zeus/bin/
+sudo ln -s /bin/kubectl /home/zeus/bin/
+sudo ln -s /bin/ls /home/zeus/bin/
 
 
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
@@ -152,6 +152,50 @@ spec:
         - containerPort: 80
 EOF
 
+cat <<EOF > /home/zeus/templates/alpine-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  namespace: application
+spec:
+  selector:
+    matchLabels:
+      app: user
+  replicas: 2 # indica al controlador que ejecute 2 pods
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+      - name: alpine
+        image: alpine:latest
+EOF
+
+cat <<EOF > /home/zeus/templates/mariadb-deploy.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  namespace: application
+spec:
+  selector:
+    matchLabels:
+      app: user
+  replicas: 2 # indica al controlador que ejecute 2 pods
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+      - name: mariadb 
+        image: mariadb:latest
+        ports:
+        - containerPort: 3306
+
+EOF
+
 kubectl create namespace application
 kubectl apply -f /home/zeus/roles/noprv.yaml
-export  KUBECONFIG=/home/zeus/noprv-users/.kube/config
