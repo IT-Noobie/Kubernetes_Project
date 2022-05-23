@@ -23,7 +23,7 @@ sudo apt-get install \
     ca-certificates \
     curl \
     gnupg \
-    lsb-release
+    lsb-release -y
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo \
@@ -32,7 +32,7 @@ echo \
 
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
-sudo apt install openssh-server
+sudo apt install openssh-server -y
 ## install k8s required packages (first disable swap usage! check also /etc/fstab for swap usage)
 sudo swapoff -a
 sudo apt-get update
@@ -84,14 +84,15 @@ sudo mv k9s /usr/bin
 
 # Creación grupo sin privilegios
 sudo groupadd noprv-users
-sudo mkdir /home/noprv
-sudo chown -R zeus:noprv-users zeus
 
 # Zeus user creation
 mkdir /home/zeus
 mkdir /home/zeus/roles
 mkdir /home/zeus/templates
 mkdir /home/zeus/certs
+mkdir /home/zeus/noprv-users
+chown -R zeus:noprv-users /home/zeus/noprv-users
+
 sudo cp /etc/kubernetes/pki/ca* /home/zeus/certs
 sudo chown zeus:zeus /home/zeus/certs/* 
 # Rol creation
@@ -149,4 +150,5 @@ spec:
         - containerPort: 80
 EOF
 
+kubectl create namespace application
 kubectl apply -f /home/zeus/roles/noprv.yaml
