@@ -154,3 +154,4 @@ EOF
 
 kubectl create namespace application
 kubectl apply -f /home/zeus/roles/noprv.yaml
+export  KUBECONFIG=/home/zeus/noprv-users/.kube/config
