@@ -14,7 +14,9 @@ sudo ln -s /bin/sed /home/zeus/bin/
 sudo ln -s /bin/rm /home/zeus/bin/
 sudo ln -s /bin/kubectl /home/zeus/bin/
 sudo ln -s /bin/ls /home/zeus/bin/
-
+mkdir /home/zeus/scripts
+mv ./sshScript.sh /home/zeus/scripts
+mv ./userDeploy.sh /home/zeus/scripts
 
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
@@ -64,9 +66,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ## only on the control plane server/node!
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.23.0
 ## set up kubeconfig to interact with the control plane node and get nodes
-mkdir -p $HOME/noprv-users/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/noprv-users/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/noprv-users/.kube/config
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 kubectl get nodes
 
 # create the networking on the cluster (calico) and check control plane node status
