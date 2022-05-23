@@ -8,7 +8,7 @@ username=$USER
 deployed=()
 
 # Changes deploy templates for user specific name templates
-deploysList=($(ls /home/noprv/${username}/templates | sed -e 's/\-deploy.yaml$//'))
+deploysList=($(ls /home/${username}/templates | sed -e 's/\-deploy.yaml$//'))
 for deploy in "${deploysList[@]}"
 do
   sed -i -e "s/  name: user-deployment/  name: ${username}-${deploy}-deployment/" -e "s/      app: user/      app: ${username}-${deploy}/"  templates/${deploy}-deploy.yaml
@@ -24,7 +24,7 @@ do
         if [ $REPLY -le ${#deploysList[@]} ] && [ $REPLY -gt 0 ]
         then
                 echo -e "${GREEN}SELECTED APPLICATION IS: ${NC} ${application}"
-        #       kubectl apply -f templates/${application}-deploy.yaml
+                kubectl apply -f templates/${application}-deploy.yaml
                 deployed+=(${application})
                 break
         elif [ $REPLY -eq 0 ]
