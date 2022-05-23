@@ -3,6 +3,14 @@
 # cri: Docker
 # install required dependencies for earch k8s server/node.
 ## enable some kernel modules and make them available now.
+# Create needed folders
+mkdir /home/zeus/roles
+mkdir /home/zeus/templates
+mkdir /home/zeus/certs
+mkdir /home/zeus/noprv-users
+chown -R zeus:noprv-users /home/zeus/noprv-users
+
+
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
@@ -51,9 +59,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ## only on the control plane server/node!
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.23.0
 ## set up kubeconfig to interact with the control plane node and get nodes
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mkdir -p $HOME/noprv-users/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/noprv-users/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/noprv-users/.kube/config
 kubectl get nodes
 
 # create the networking on the cluster (calico) and check control plane node status
@@ -84,14 +92,6 @@ sudo mv k9s /usr/bin
 
 # Creación grupo sin privilegios
 sudo groupadd noprv-users
-
-# Zeus user creation
-mkdir /home/zeus
-mkdir /home/zeus/roles
-mkdir /home/zeus/templates
-mkdir /home/zeus/certs
-mkdir /home/zeus/noprv-users
-chown -R zeus:noprv-users /home/zeus/noprv-users
 
 sudo cp /etc/kubernetes/pki/ca* /home/zeus/certs
 sudo chown zeus:zeus /home/zeus/certs/* 
