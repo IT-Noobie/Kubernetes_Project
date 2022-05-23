@@ -8,6 +8,9 @@ mkdir /home/zeus/roles
 mkdir /home/zeus/templates
 mkdir /home/zeus/certs
 mkdir /home/zeus/noprv-users
+mkdir /home/zeus/scripts
+cp /home/zeus/Kubernetes_Project/userDeploy.sh /home/zeus/Kubernetes_Project/sshScript.sh /home/zeus/scripts
+
 # Creación grupo sin privilegios
 sudo groupadd noprv-users
 sudo chown -R zeus:noprv-users /home/zeus/noprv-users
