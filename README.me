@@ -1,2 +1,4 @@
 #!/bin/bash
 kubeadm join 192.168.4.12:6443 --token 7qecmj.xo988z8az8lciel6 --discovery-token-ca-cert-hash sha256:110e11d130bd32c1233b09c6598bf3857ac2e0d8fb04b656f0e0cf84a68deee3 
+# SSL APACHE
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/crane.key -out /etc/ssl/certs/crane.crt
