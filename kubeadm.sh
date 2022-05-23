@@ -77,10 +77,15 @@ helm repo update
 wget https://api.k8slens.dev/binaries/Lens-5.4.6-latest.20220428.1.amd64.deb
 sudo dpkg -i Lens-5.4.6-latest.20220428.1.amd64.deb
 
+# Instalación k9s
+wget https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz
+tar -xvf k9s_Linux_x86_64.tar.gz
+sudo mv k9s /usr/bin
+
 # Creación grupo sin privilegios
-sudo groupadd nopvr-users
+sudo groupadd noprv-users
 sudo mkdir /home/noprv
-sudo chown -R zeus:noprv-users
+sudo chown -R zeus:noprv-users zeus
 
 # Zeus user creation
 mkdir /home/zeus
@@ -120,7 +125,7 @@ rules:
 EOF
 
 # Creación PODS mediante deploy garantizando una replica
-cat <<EOF > /home/noprv/$username/templates/nginx-deploy.yaml
+cat <<EOF > /home/zeus/templates/nginx-deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -143,4 +148,4 @@ spec:
         - containerPort: 80
 EOF
 
-kubectl apply -f /home/zeus/templates/noprv.yaml
+kubectl apply -f /home/zeus/roles/noprv.yaml
