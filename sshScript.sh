@@ -17,7 +17,7 @@ mkdir /home/noprv/${username}
 mkdir /home/noprv/${username}/certs
 
 # Create user specifying directory, group and shell
-echo ${godPassword} | sudo -S useradd -d /home/noprv/${username} -s /bin/bash -G noprv $username
+echo ${godPassword} | sudo -S useradd -d /home/noprv/${username} -s /bin/bash -G noprv-users $username
 
 # Creates user certificates and context for Kubernetes
 cd /home/noprv/${username}
