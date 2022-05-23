@@ -92,7 +92,8 @@ mkdir /home/zeus
 mkdir /home/zeus/roles
 mkdir /home/zeus/templates
 mkdir /home/zeus/certs
-
+sudo cp /etc/kubernetes/pki/ca* /home/zeus/certs
+sudo chown zeus:zeus /home/zeus/certs/* 
 # Rol creation
 cat <<EOF > /home/zeus/roles/noprv.yaml
 apiVersion: rbac.authorization.k8s.io/v1
