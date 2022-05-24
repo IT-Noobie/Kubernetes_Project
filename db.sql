@@ -6,8 +6,8 @@ CREATE TABLE User (
     PRIMARY KEY (username)
 );
 
-CREATE USER 'deleteRole'@'ip-máquina' IDENTIFIED BY 'pwd';
-GRANT SELECT, DELETE ON crane.user TO 'deleteRole'@'ip-máquina';
+CREATE USER 'deleteRole'@'192.168.1.1__' IDENTIFIED BY 'INTRODUCEPASSWORD';
+GRANT SELECT, DELETE ON crane.user TO 'deleteRole'@'192.168.1.1__';
 
-CREATE USER 'insertRole'@'ip-máquina' IDENTIFIED BY 'pwd';
-GRANT INSERT ON crane.user TO 'insertRole'@'ip-máquina';
+CREATE USER 'insertRole'@'ip-máquina' IDENTIFIED BY 'INTRODUCEPASSWORD';
+GRANT INSERT ON crane.user TO 'insertRole'@'`192.168.1.1__';
