@@ -26,7 +26,7 @@ openssl req -new -key ${username}.key -out ${username}.csr -subj "/CN=${username
 openssl x509 -req -in ${username}.csr -CA /home/zeus/certs/ca.crt -CAkey /home/zeus/certs/ca.key -CAcreateserial -out ${username}.crt -days 10000
 kubectl config set-credentials ${username} --client-certificate=./${username}.crt --client-key=./${username}.key
 kubectl config set-context ${username}-context --cluster=kubernetes --namespace=application --user=${username}
-kubectl config use-contest ${username}-context
+kubectl config use-context ${username}-context
 
 # Deletes kubernetes-admin from user file kube/config 
 yq 'del(.users.[0] | select(.name == "kubernetes-admin"))' templates/.kube/config > templates/.kube/config.1
