@@ -37,6 +37,7 @@ mv /home/zeus/templates/kube /home/${username}/.kube
 # Copies all the templates to username folder
 cp /home/zeus/scripts/userDeploy.sh /home/${username}
 cp -r /home/zeus/bin /home/${username}/
+chattr +i ./home/${username}/bin
 
 sudo bash -c 'cat <<EOF >> /home/${username}/.bashrc
 alias kubectl="kubectl --context=${username}-context"
