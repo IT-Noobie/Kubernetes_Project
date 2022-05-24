@@ -1,6 +1,6 @@
 #!/bin/bash
-kubeadm join 192.168.4.15:6443 --token 62mnfw.dyr9nr2zuap53n2i \
-        --discovery-token-ca-cert-hash sha256:059ae4088111ce9821942f7bfaf3edd4b8811ef1d352b347a8226f540479a85c 
+kubeadm join 192.168.4.15:6443 --token qy5pgc.ucoeclgtnnso4abl --discovery-token-ca-cert-hash sha256:e2e3deba21faf64182e247ae8e0c96826181f478b4b1699b3052070104d72563 
+
 
 # SSL APACHE
 #openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/crane.key -out /etc/ssl/certs/crane.crt
