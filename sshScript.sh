@@ -1,3 +1,5 @@
+#/bin/bash
+
 if [ $# -ne 3 ]
 then
     echo 'Arguments parsing error'
@@ -32,12 +34,11 @@ kubectl config use-context ${username}-context
 yq 'del(.users.[0] | select(.name == "kubernetes-admin"))' templates/.kube/config > templates/.kube/config.1
 yq 'del(.contexts.[0].context | select(.user == "kubernetes-admin"))' templates/.kube/config.1 > templates/.kube/config.2
 yq 'del(.contexts.[0] | select(.name == "kubernetes-admin@kubernetes"))' templates/.kube/config.2 > templates/.kube/config
-mv /home/zeus/templates/kube /home/${username}/.kube
+cp -r /home/zeus/templates/kube /home/${username}/.kube
 
 # Copies all the templates to username folder
 cp /home/zeus/scripts/userDeploy.sh /home/${username}
 cp -r /home/zeus/bin /home/${username}/
-chattr +i ./home/${username}/bin
 
 sudo bash -c 'cat <<EOF >> /home/${username}/.bashrc
 alias kubectl="kubectl --context=${username}-context"
@@ -45,4 +46,11 @@ PATH=/home/${username}/bin
 export PATH
 EOF'
 
+kubectl config use-context kubernetes-admin@kubernetes
 echo ${godPassword} | sudo -S chown -R ${username}:zeus /home/${username}
+cat <<EOF > /home/zeus/passwd-${username}.txt
+${username}:${password}
+EOF
+
+echo ${godPassword} | sudo -S chpasswd < /home/zeus/passwd-${username}.txt
+rm -rf /home/zeus/passwd-${username}.txt
