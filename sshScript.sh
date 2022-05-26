@@ -20,7 +20,6 @@ mkdir /home/${username}/certs
 # Creates user certificates and context for Kubernetes
 cd /home/${username}
 # Generates rolebinding and certificates. Configures credentials and sets it up
-cp -r /home/zeus/templates /home/${username}/
 
 kubectl create rolebinding noprv_${RANDOM} --role noprv-role --user ${username} -n application
 openssl genrsa -out ${username}.key 2048
@@ -30,11 +29,14 @@ kubectl config set-credentials ${username} --client-certificate=./${username}.cr
 kubectl config set-context ${username}-context --cluster=kubernetes --namespace=application --user=${username}
 kubectl config use-context ${username}-context
 
+cp -r /home/zeus/.kube /home/zeus/templates/kube
 # Deletes kubernetes-admin from user file kube/config 
-yq 'del(.users.[0] | select(.name == "kubernetes-admin"))' templates/.kube/config > templates/.kube/config.1
-yq 'del(.contexts.[0].context | select(.user == "kubernetes-admin"))' templates/.kube/config.1 > templates/.kube/config.2
-yq 'del(.contexts.[0] | select(.name == "kubernetes-admin@kubernetes"))' templates/.kube/config.2 > templates/.kube/config
-cp -r /home/zeus/templates/kube /home/${username}/.kube
+yq 'del(.users.[0] | select(.name == "kubernetes-admin"))' /home/zeus/templates/kube/config > /home/zeus/templates/kube/config.1
+yq 'del(.contexts.[0].context | select(.user == "kubernetes-admin"))' /home/zeus/templates/kube/config.1 > /home/zeus/templates/kube/config.2
+yq 'del(.contexts.[0] | select(.name == "kubernetes-admin@kubernetes"))' /home/zeus/templates/kube/config.2 > /home/zeus/templates/kube/config
+
+rm -rf /home/zeus/templates/kube/config*
+mv /home/zeus/templates/kube/ /home/${username}/.kube
 
 # Copies all the templates to username folder
 cp /home/zeus/scripts/userDeploy.sh /home/${username}
@@ -54,3 +56,5 @@ EOF
 
 echo ${godPassword} | sudo -S chpasswd < /home/zeus/passwd-${username}.txt
 rm -rf /home/zeus/passwd-${username}.txt
+echo ${godPassword} | sudo -S chown -R ${username}:zeus /home/${username}
+
