@@ -28,7 +28,8 @@ if ( empty($username) || empty($email) || empty($contra)) {
     $sshConnection = ssh2_connect('IP_CONTROLPLANE', 22);
     if (ssh2_auth_password($sshConnection, 'zeus', 'zeus')) {
         #echo "authentication Successful\n";
-        $stream = ssh2_exec($sshConnection, "bash /home/zeus/scripts/sshScript.sh zeus '$username' '$contra'");
+		$command = 'bash /home/zeus/scripts/sshScript.sh zeus '.$username.' '.$password;
+        $stream = ssh2_exec($sshConnection, $command);
         #echo "hecho";
         #header("Location: ../images.php");
     } else {
