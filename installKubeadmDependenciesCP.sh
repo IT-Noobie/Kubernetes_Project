@@ -82,9 +82,10 @@ kubeadm token create --print-join-command
 kubectl get nodes
 
 # Install prometheus
-snap install helm --classic
+sudo snap install helm --classic
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
+sudo snap install yq
 #kubectl create namespace prometheus
 #helm install prometheus prometheus-community/kube-prometheus-stack --namespace=prometheus
 
