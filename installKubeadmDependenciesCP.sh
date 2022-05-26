@@ -201,3 +201,13 @@ EOF
 
 kubectl create namespace application
 kubectl apply -f /home/zeus/roles/noprv.yaml
+
+# Install xfce desktop and vncserver
+apt install xfce4 xfce4-goodies tightvncserver
+vncserver
+vncserver -kill :1
+echo "startxfce4" >> ~/.vnc/xstartup (editado)
+vncserver
+
+
+
